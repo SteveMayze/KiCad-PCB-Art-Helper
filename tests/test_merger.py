@@ -19,6 +19,7 @@ def test_merge_footprints_combines_graphics_and_keeps_single_metadata_block():
     assert merged.count('(fp_text reference "G***"') == 1
     assert merged.count('(fp_text value "ART"') == 1
     assert merged.count('(fp_poly') == 2
+    assert '(layer "F.Cu")' not in merged
     assert '(layer "F.SilkS")' in merged
     assert '(layer "F.Mask")' in merged
     assert 'uuid silk-poly' not in merged
@@ -32,3 +33,12 @@ def test_merge_footprints_keeps_non_reference_text_items():
 
     assert '(fp_text user "LABEL"' in merged
     assert '(layer "Dwgs.User")' in merged
+
+
+def test_merge_footprints_retargets_footprint_top_level_layer():
+    merged = merge_footprints(
+        [MergeInput(layer="B.Cu", path=FIXTURES / "silk.kicad_mod")]
+    )
+
+    assert '(layer "B.Cu")' in merged
+    assert '(layer "F.Cu")' not in merged
