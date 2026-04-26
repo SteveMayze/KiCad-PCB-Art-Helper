@@ -1,0 +1,23 @@
+(footprint "ART" 
+  (version 20221018)
+  (generator "pytest")
+  (generator_version "1.0")
+  (layer "F.Cu")
+  (attr board_only exclude_from_pos_files exclude_from_bom)
+  (fp_text reference "G***" (at 0 0) (layer "F.SilkS")
+    (effects (font (size 1 1) (thickness 0.15)))
+    (uuid silk-ref)
+  )
+  (fp_text value "ART" (at 0 -1) (layer "F.SilkS") hide
+    (effects (font (size 1 1) (thickness 0.15)))
+    (uuid silk-val)
+  )
+  (fp_poly
+    (pts
+      (xy 0 0)
+      (xy 1 0)
+      (xy 1 1)
+    )
+    (stroke (width 0) (type solid)) (fill solid) (layer "F.SilkS") (uuid silk-poly)
+  )
+)
