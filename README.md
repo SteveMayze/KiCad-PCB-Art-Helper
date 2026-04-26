@@ -64,6 +64,10 @@ If you want to call one of those from anywhere, add the [scripts](scripts) direc
 kicad-merge --output combined.kicad_mod --f.silk silk.kicad_mod --f.mask mask.kicad_mod --f.cu copper.kicad_mod
 ```
 
+Layer mapping flags are authoritative. The output remaps each merged item to the selected target layer even if the source file was generated for a different layer.
+
+For example, passing `--b.cu some_front_layer_file.kicad_mod` will write that source content on `B.Cu` in the merged footprint.
+
 The common front-layer flags are available directly:
 
 - `--f.cu`

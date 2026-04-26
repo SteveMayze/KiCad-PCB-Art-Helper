@@ -58,7 +58,12 @@ def merge_footprints(sources: list[MergeInput], footprint_name: str | None = Non
     base = parsed[0]
     name = footprint_name or _unquote_atom(base.name)
 
-    kept_forms = [form for form in base.forms if _keep_from_base(form)]
+    target_footprint_layer = sources[0].layer
+    kept_forms = [
+        _retarget_base_form(form, target_footprint_layer)
+        for form in base.forms
+        if _keep_from_base(form)
+    ]
     merged_items: list[str] = []
     for source, footprint in zip(sources, parsed, strict=True):
         merged_items.extend(_retarget_item(form, source.layer) for form in footprint.forms if _is_mergeable_item(form))
@@ -120,6 +125,12 @@ def _is_mergeable_item(form: str) -> bool:
 def _retarget_item(form: str, layer: str) -> str:
     without_uuid = UUID_PATTERN.sub("", form)
     return LAYER_PATTERN.sub(f'(layer "{layer}")', without_uuid)
+
+
+def _retarget_base_form(form: str, layer: str) -> str:
+    if _form_head(form) != "layer":
+        return form
+    return f'(layer "{layer}")'
 
 
 def _form_head(form: str) -> str:
