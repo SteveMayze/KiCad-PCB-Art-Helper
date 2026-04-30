@@ -64,6 +64,26 @@ If you want to call one of those from anywhere, add the [scripts](scripts) direc
 kicad-merge --output combined.kicad_mod --f.silk silk.kicad_mod --f.mask mask.kicad_mod --f.cu copper.kicad_mod
 ```
 
+You can also provide values from a YAML config file:
+
+```yaml
+output: combined.kicad_mod
+name: COMBINED_ART
+layers:
+	F.SilkS: silk.kicad_mod
+	F.Mask: mask.kicad_mod
+	Dwgs.User: labels.kicad_mod
+```
+
+Run with:
+
+```bash
+kicad-merge --config merge.yaml
+```
+
+Command-line flags still work as before and take precedence over config values.
+Relative paths inside the config are resolved from the config file directory.
+
 Layer mapping flags are authoritative. The output remaps each merged item to the selected target layer even if the source file was generated for a different layer.
 
 For example, passing `--b.cu some_front_layer_file.kicad_mod` will write that source content on `B.Cu` in the merged footprint.

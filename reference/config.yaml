@@ -1,0 +1,8 @@
+
+
+output: combined.kicad_mod
+name: COMBINED_ART
+layers:
+  F.SilkS: SkeleKatze-Silk.kicad_mod
+  # F.Mask: SkeleKatze-Mask.kicad_mod
+  # F.Cu: SkeleKatze-Copper.kicad_mod
